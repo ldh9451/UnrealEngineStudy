@@ -34,6 +34,8 @@ AABCharacter::AABCharacter()
 	{
 		GetMesh()->SetAnimInstanceClass(WARRIOR_ANIM.Class);
 	}
+
+	SetControlMode(0);
 }
 
 // Called when the game starts or when spawned
@@ -80,4 +82,19 @@ void AABCharacter::LookUp(float NewAxisValue)
 void AABCharacter::Turn(float NewAxisValue)
 {
 	AddControllerYawInput(NewAxisValue);
+}
+
+void AABCharacter::SetControlMode(int32 ControlMode)
+{
+	if (0 == ControlMode)
+	{
+		SpringArm->TargetArmLength = 450.0f;
+		SpringArm->SetRelativeRotation(FRotator::ZeroRotator);
+		SpringArm->bUsePawnControlRotation = true;
+		SpringArm->bInheritPitch = true;
+		SpringArm->bInheritRoll = true;
+		SpringArm->bInheritYaw = true;
+		SpringArm->bDoCollisionTest = true;
+		bUseControllerRotationYaw = false;
+	}
 }
